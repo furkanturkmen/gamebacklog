@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,15 +12,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
-
 import com.furkanturkmen.gamebacklog.R;
 import com.furkanturkmen.gamebacklog.models.Game;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class AddActivity extends AppCompatActivity {
@@ -43,7 +38,6 @@ public class AddActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         setTitle("Add new game");
 
         sItems = findViewById(R.id.spinnerStatus);
@@ -66,18 +60,24 @@ public class AddActivity extends AppCompatActivity {
 
             }
         });
+            fabSaveGame = findViewById(R.id.saveGameFab);
+            fabSaveGame.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-        fabSaveGame = findViewById(R.id.saveGameFab);
-        fabSaveGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    intent = new Intent();
-                    newGame = new Game(titleGame.getText().toString(), platformGame.getText().toString(), notesGame.getText().toString(), selectedItemText, dateNow);
-                    intent.putExtra(MainActivity.EXTRA_GAME, newGame);
-                    setResult(Activity.RESULT_OK, intent);
-                    finish();
-            }
-        });
+                    if(titleGame.getText().toString().isEmpty() || platformGame.getText().toString().isEmpty()) {
+                        Snackbar.make(findViewById(android.R.id.content), "Don't leave the fields empty!", Snackbar.LENGTH_LONG).show();
+
+                    } else{
+
+                        intent = new Intent();
+                        newGame = new Game(titleGame.getText().toString(), platformGame.getText().toString(), notesGame.getText().toString(), selectedItemText, dateNow);
+                        intent.putExtra(MainActivity.EXTRA_GAME, newGame);
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
+                    }
+                }
+            });
+        }
     }
 
-}

@@ -80,16 +80,24 @@ public class UpdateActivity extends AppCompatActivity {
         updateFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                String titleNewGame = titleGame.getText().toString();
-                String platformNewGame = platformGame.getText().toString();
-                String notesNewGame = notesGame.getText().toString();
 
-                Game game = new Game(titleNewGame, platformNewGame, notesNewGame, selectedItemText, dateNow);
-                game.setId(gameId);
-                intent.putExtra(MainActivity.EXTRA_GAME, game);
-                setResult(Activity.RESULT_OK, intent);
-                finish();
+
+                if(titleGame.getText().toString().isEmpty() || platformGame.getText().toString().isEmpty()) {
+                    Snackbar.make(findViewById(android.R.id.content), "Don't leave the fields empty!", Snackbar.LENGTH_LONG).show();
+
+                } else {
+                    Intent intent = new Intent();
+
+                    String titleNewGame = titleGame.getText().toString();
+                    String platformNewGame = platformGame.getText().toString();
+                    String notesNewGame = notesGame.getText().toString();
+
+                    Game game = new Game(titleNewGame, platformNewGame, notesNewGame, selectedItemText, dateNow);
+                    game.setId(gameId);
+                    intent.putExtra(MainActivity.EXTRA_GAME, game);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                }
             }
         });
 
