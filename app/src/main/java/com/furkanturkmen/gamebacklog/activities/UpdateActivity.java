@@ -41,6 +41,7 @@ public class UpdateActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         sItems = findViewById(R.id.spinnerStatus);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.status, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -55,10 +56,6 @@ public class UpdateActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedItemText = (String) parent.getItemAtPosition(position);
-                // Notify the selected item text
-                Toast.makeText
-                        (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                        .show();
             }
 
             @Override
@@ -95,6 +92,9 @@ public class UpdateActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        setTitle("Update: " + updatedGame.getTitle());
     }
+
 
 }
